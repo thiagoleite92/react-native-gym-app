@@ -46,7 +46,7 @@ export const AppRoutes = () => {
           paddingTop: sizes[6],
         },
       }}
-      initialRouteName="exercise"
+      initialRouteName="home"
     >
       <Screen
         name="home"
