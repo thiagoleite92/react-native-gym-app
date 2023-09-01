@@ -46,6 +46,7 @@ export const AppRoutes = () => {
           paddingTop: sizes[6],
         },
       }}
+      initialRouteName="history"
     >
       <Screen
         name="home"
