@@ -24,7 +24,7 @@ export default function Home() {
         renderItem={({ item }) => (
           <Group
             name={item}
-            isActive={item === selectGroup}
+            isActive={item.toLowerCase() === selectGroup.toLowerCase()}
             onPress={() => setSelectGroup(item)}
           />
         )}
