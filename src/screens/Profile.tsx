@@ -9,6 +9,8 @@ import {
   Heading,
 } from 'native-base'
 
+import * as ImagePicker from 'expo-image-picker'
+
 import { ScreenHeader } from '@components/ScreenHeader/ScreenHeader'
 import { UserPhoto } from '@components/UserPhoto/UserPhoto'
 import Input from '@components/Input/Input'
@@ -18,6 +20,33 @@ const PHOTO_SIZE = 33
 
 export default function Profile() {
   const [photoIsLoading, setPhotoIsLoading] = useState(false)
+  const [userPhoto, setUserPhoto] = useState(
+    'https://github.com/thiagoleite92.png',
+  )
+
+  const handleUserPhotoSelect = async () => {
+    try {
+      setPhotoIsLoading(true)
+
+      const selectedPhoto = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        quality: 1,
+        aspect: [4, 4],
+        allowsEditing: true,
+      })
+
+      if (selectedPhoto?.canceled) {
+        return
+      }
+
+      if (selectedPhoto?.assets[0]?.uri)
+        setUserPhoto(selectedPhoto?.assets[0]?.uri)
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setPhotoIsLoading(false)
+    }
+  }
 
   return (
     <VStack flex={1}>
@@ -36,12 +65,12 @@ export default function Profile() {
 
           {!photoIsLoading && (
             <UserPhoto
-              source={{ uri: 'https://github.com/thiagoleite92.png' }}
+              source={{ uri: userPhoto }}
               size={PHOTO_SIZE}
               alt="User Photo"
             />
           )}
-          <TouchableOpacity>
+          <TouchableOpacity onPress={handleUserPhotoSelect}>
             <Text
               color="green.500"
               fontWeight={'bold'}
