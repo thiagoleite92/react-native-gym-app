@@ -7,9 +7,11 @@ import {
   VStack,
   Skeleton,
   Heading,
+  useToast,
 } from 'native-base'
 
 import * as ImagePicker from 'expo-image-picker'
+import * as FileSystem from 'expo-file-system'
 
 import { ScreenHeader } from '@components/ScreenHeader/ScreenHeader'
 import { UserPhoto } from '@components/UserPhoto/UserPhoto'
@@ -19,6 +21,8 @@ import Button from '@components/Button/Button'
 const PHOTO_SIZE = 33
 
 export default function Profile() {
+  const Toast = useToast()
+
   const [photoIsLoading, setPhotoIsLoading] = useState(false)
   const [userPhoto, setUserPhoto] = useState(
     'https://github.com/thiagoleite92.png',
@@ -26,8 +30,6 @@ export default function Profile() {
 
   const handleUserPhotoSelect = async () => {
     try {
-      setPhotoIsLoading(true)
-
       const selectedPhoto = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         quality: 1,
@@ -38,9 +40,23 @@ export default function Profile() {
       if (selectedPhoto?.canceled) {
         return
       }
+      setPhotoIsLoading(true)
 
-      if (selectedPhoto?.assets[0]?.uri)
+      if (selectedPhoto?.assets[0]?.uri) {
+        const photoInfo = await FileSystem.getInfoAsync(
+          selectedPhoto?.assets[0]?.uri,
+        )
+
+        if (photoInfo.exists && photoInfo.size / 1024 / 1024 > 3) {
+          return Toast.show({
+            title: 'Imagem muito grande. Máximo de 3mb',
+            placement: 'top',
+            bgColor: 'red.500',
+            duration: 3000,
+          })
+        }
         setUserPhoto(selectedPhoto?.assets[0]?.uri)
+      }
     } catch (error) {
       console.log(error)
     } finally {
