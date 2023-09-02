@@ -48,6 +48,7 @@ export default function SignUp() {
             autoCapitalize="none"
           />
           <Input placeholder="Senha" secureTextEntry />
+          <Input placeholder="Confirmar Senha" secureTextEntry />
           <Button title="Criar e Acessar" />
         </Center>
 
