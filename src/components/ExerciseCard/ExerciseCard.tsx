@@ -28,7 +28,7 @@ export const ExerciseCard = ({ ...rest }: Props) => {
         />
 
         <VStack flex={1}>
-          <Heading fontSize="lg" color="white">
+          <Heading fontFamily={'heading'} fontSize="lg" color="white">
             Remada Curvada
           </Heading>
           <Text fontSize="sm" color="gray.300" numberOfLines={2}>

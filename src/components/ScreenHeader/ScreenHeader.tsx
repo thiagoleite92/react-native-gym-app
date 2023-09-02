@@ -1,4 +1,4 @@
-import { Center, Heading, Text, VStack } from 'native-base'
+import { Center, Heading } from 'native-base'
 
 type Props = {
   title: string
@@ -7,7 +7,7 @@ type Props = {
 export const ScreenHeader = ({ title }: Props) => {
   return (
     <Center bg={'gray.600'} pb={6} pt={16}>
-      <Heading color="gray.100" fontSize={'xl'} fontFamily={'heading'}>
+      <Heading fontFamily={'heading'} color="gray.100" fontSize={'xl'}>
         {title}
       </Heading>
     </Center>

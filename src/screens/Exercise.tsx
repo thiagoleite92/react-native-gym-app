@@ -39,7 +39,13 @@ export default function Exercise() {
           mb={8}
           alignItems={'center'}
         >
-          <Heading color={'gray.100'} pt={12} fontSize={'lg'} flexShrink={1}>
+          <Heading
+            fontFamily={'heading'}
+            color={'gray.100'}
+            pt={12}
+            fontSize={'lg'}
+            flexShrink={1}
+          >
             Puxada Frontal
           </Heading>
 
